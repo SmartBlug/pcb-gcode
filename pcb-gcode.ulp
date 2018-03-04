@@ -77,8 +77,6 @@ int m_layer;
 string g_cmd;
 string g_cmd_temp;
 
-
-
 ////////// mlmSolutions added 29 Jan 14
 
 real m_v_x[], m_v_y[], m_v_rad[];
@@ -101,8 +99,7 @@ real m_max_x;
 real m_max_y;
 real m_min_x;
 real m_min_y;
-void save_extents(real x, real y)
-{
+void save_extents(real x, real y) {
 	m_max_x = max(m_max_x, x);
 	m_max_y = max(m_max_y, y);
 	m_min_x = min(m_min_x, x);
@@ -115,8 +112,7 @@ void save_extents(real x, real y)
 // Params: none
 // Return: none
 //
-void preview()
-{
+void preview() {
   if (SHOW_PREVIEW) {
     switch(get_os()) {
       case OS_MACOSX:
@@ -141,8 +137,7 @@ void preview()
 // Params: none
 // Return: none
 //
-void next_phase(void)
-{
+void next_phase(void) {
 	if (g_phase == PH_TOP_OUT_GEN && GENERATE_TOP_OUTLINES != YES) {
 		g_phase += 2;
 		return;
@@ -190,8 +185,7 @@ void next_phase(void)
 // Changes:
 //  the stack
 //
-void add_hole(int req_size, int x, int y)
-{
+void add_hole(int req_size, int x, int y) {
 	string tempstr;
 	int drill_size;
 
@@ -287,8 +281,7 @@ void pythagorean_sort() {
  *  m_current_tool
  *  g_side
 */
-void drill(int which_side)
-{
+void drill(int which_side) {
 	int num_lines;
 	int i;
 	real last_size;
@@ -434,8 +427,7 @@ string LINE_SEP = "\n";
 string COORD_SEP = ",";
 string COORD_FMT = "%8.5f";
 
-string coords(real x1, real y1, real x2, real y2)
-{
+string coords(real x1, real y1, real x2, real y2) {
 	return frrrr(COORD_FMT + COORD_SEP + COORD_FMT + COORD_SEP +
 		COORD_FMT + COORD_SEP + COORD_FMT + LINE_SEP, x1, y1, x2, y2);
 }
@@ -453,8 +445,7 @@ string coords(real x1, real y1, real x2, real y2)
 //  g_side
 //
 int m_first_spot_drill = YES;
-void spot_drill_hole(int drill_size, int x, int y)
-{
+void spot_drill_hole(int drill_size, int x, int y) {
 	real drill_x;
 	real drill_y;
   real offset;
@@ -494,8 +485,7 @@ void spot_drill_hole(int drill_size, int x, int y)
 // Changes: 
 //  m_lines
 //
-void spot_drill(UL_BOARD B)
-{
+void spot_drill(UL_BOARD B) {
 
   m_lines += "# spot drills\n";
   
@@ -535,8 +525,7 @@ real m_arc_begin_y;
 real m_arc_radius;
 int pair_count = 0;
 int MAX_COORDS_PER_LINE = 4;
-void device_draw(int x1, int y1, int x2, int y2, int state, real z_down_or_radius, real fr_xy, real fr_z)
-{
+void device_draw(int x1, int y1, int x2, int y2, int state, real z_down_or_radius, real fr_xy, real fr_z) {
 	real rx1, ry1, rx2, ry2;
 	
 	string str;
@@ -673,8 +662,7 @@ void device_draw(int x1, int y1, int x2, int y2, int state, real z_down_or_radiu
 //  m_layer
 //  g_cmd
 //
-void generate_outlines(int which_side)
-{
+void generate_outlines(int which_side) {
 	string cmd_temp = "";
 
 	g_cmd = "";
@@ -735,8 +723,7 @@ void generate_outlines(int which_side)
 // Changes:
 //  none
 //
-void out_lines(string path, string mode, int layer)
-{
+void out_lines(string path, string mode, int layer) {
   output(path, mode) {
   	if (m_pass_num == 0) {
   		printf("# board=%s\n", elided_path(get_filename(), 30));
@@ -766,8 +753,7 @@ void out_lines(string path, string mode, int layer)
 // Changes:
 //  none
 //
-void output_preview_data(string mode, int layer)
-{
+void output_preview_data(string mode, int layer) {
   out_lines(g_path + "/viewer/data/optimize_me.txt", mode, layer);
 	out_lines(g_path + "/viewer/applet/data/optimize_me.txt", mode, layer);
 	out_lines(g_path + "/viewer/application.macosx/data/optimize_me.txt", mode, layer);
@@ -786,8 +772,7 @@ void output_preview_data(string mode, int layer)
 //  g_tool_size
 //  m_lines
 //
-void output_text_code()
-{
+void output_text_code() {
 	int state;
 	int old_x, old_y;
 
@@ -865,8 +850,7 @@ void output_text_code()
 // Changes:
 //  nothing
 //
-int match(real X1, real Y1, real X2, real Y2)
-{
+int match(real X1, real Y1, real X2, real Y2) {
 	if ((X1 == X2) && (Y1 == Y2)) return true; else return false;
 }
 
@@ -880,8 +864,7 @@ int match(real X1, real Y1, real X2, real Y2)
 // Changes:
 //  pointers of previous and next entry
 //
-void vertex_remove(int id)
-{
+void vertex_remove(int id) {
 	m_v_next[m_v_prev[id]] = m_v_next[id];
 	m_v_prev[m_v_next[id]] = m_v_prev[id];
 }
@@ -901,8 +884,7 @@ void vertex_remove(int id)
 //  g_tool_size
 //  m_lines
 //
-void output_mill_code()
-{
+void output_mill_code() {
 	int state;
 	int old_x, old_y;
 	int first_run = true;
@@ -1118,8 +1100,7 @@ void output_mill_code()
 //  g_cmd
 //  g_debug
 //
-void write_outlines(int which_side, int task)
-{
+void write_outlines(int which_side, int task) {
 	string mode;
 	int x1 = INT_MAX, y1 = INT_MAX, x2 = INT_MIN, y2 = INT_MIN;
 	int x0, y0;
@@ -1130,7 +1111,7 @@ void write_outlines(int which_side, int task)
 	real fr_xy;
 	real fr_z;
 
-	if (m_pass_num == 0) {
+	if ((m_pass_num == 0)&&(etch_layer==1)) {
 		mode = FILEMODE_WRITE_TEXT;
 	}
 	else {
@@ -1143,24 +1124,28 @@ void write_outlines(int which_side, int task)
 		  spindle_speed = SPINDLE_ETCH_RPM;
 		  fr_xy = FEED_RATE_ETCH_XY;
 		  fr_z = FEED_RATE_ETCH_Z;
+		  DEFAULT_Z_DOWN = DEFAULT_Z_DOWN / ETCH_NUM_SLICES * etch_layer;
 		  break;
 		case BOTTOM:
 		  m_layer = BOTTOM_LAYER;
 		  spindle_speed = SPINDLE_ETCH_RPM;
 		  fr_xy = FEED_RATE_ETCH_XY;
 		  fr_z = FEED_RATE_ETCH_Z;
+		  DEFAULT_Z_DOWN = DEFAULT_Z_DOWN / ETCH_NUM_SLICES * etch_layer;
 		  break;
 		case MILL:
 		  m_layer = MILL_LAYER;
 		  spindle_speed = SPINDLE_MILL_RPM;
 		  fr_xy = FEED_RATE_MILL_XY;
 		  fr_z = FEED_RATE_MILL_Z;
+		  etch_layer = ETCH_NUM_SLICES;
 		  break;
 		case TEXT:
 		  m_layer = TEXT_LAYER;
 		  spindle_speed = SPINDLE_TEXT_RPM;
 		  fr_xy = FEED_RATE_TEXT_XY;
 		  fr_z = FEED_RATE_TEXT_Z;
+		  etch_layer = ETCH_NUM_SLICES;
 		  break;
 		default:
 		  sprintf(g_debug, "Illegal which_side %d in write_outlines", which_side);
@@ -1186,9 +1171,11 @@ void write_outlines(int which_side, int task)
 	// if m_layer == MILL_LAYER
 
 	output(get_filename(), mode) {
+//out(frrr("(### WriteOutlines %.0f,%.0f,%.0f)",which_side,task,m_pass_num));
+//out(frrrr("(### WriteOutlines %.0f,%.0f,%.0f,%.0f)",which_side,task,m_pass_num,etch_layer));
+
 		board(B) {
 			user_file_opened(get_filename(), mode);
-
 			int rubout_layer = -1;
 			B.layers(L) {
 				if (strstr(strlwr(L.name), "rubout") != -1) {
@@ -1200,7 +1187,6 @@ void write_outlines(int which_side, int task)
 					}
 				}
 			}
-
 			if (rubout_layer != -1) {
 				B.wires(W) {
 					if (W.layer == rubout_layer) {
@@ -1221,13 +1207,15 @@ void write_outlines(int which_side, int task)
 							y1 = min(y1, W.y1);
 							y2 = max(y2, W.y1);
 						}
-						if (m_pass_num == 0) {
+						if ((m_pass_num == 0)&&(etch_layer==1)) {
 							output_file_preamble();
 							begin_gcode(spindle_speed);
 						}
 						else {
 							output_between_outline_passes();
 						}
+
+//out(frr("(### WriteOutlines pass %.0f / %.0f)",m_pass_num,etch_layer));
 
 						switch (task) {
 							case TASK_OUTLINES:
@@ -1381,10 +1369,12 @@ void write_outlines(int which_side, int task)
 
 //////////
 						if (m_isolate >= ISO_MAX || SINGLE_PASS || task == TASK_FILL) {
-							output_file_postamble();
-							rz(DEFAULT_Z_UP);
-							spot_drill(B);
-							end_gcode();
+							if (etch_layer==ETCH_NUM_SLICES) {
+								output_file_postamble();
+								rz(DEFAULT_Z_UP);
+								spot_drill(B);
+								end_gcode();
+							}
 						}
 
 						sprintf(g_cmd, "delete (%f %f) (%f %f);\n",
@@ -1416,8 +1406,7 @@ void write_outlines(int which_side, int task)
 // Return:
 //  none
 //
-void write_stencil(int which_side, string suffix)
-{
+void write_stencil(int which_side, string suffix) {
   real fr_xy;
   real fr_z;
   fr_xy = FEED_RATE_STENCIL_XY;
@@ -1516,8 +1505,7 @@ void write_stencil(int which_side, string suffix)
 	return PHASE_NAME[phase];
 }
  */
-void gen_progress_menu(int phase)
-{
+void gen_progress_menu(int phase) {
 	output(path_scr[0] + '/' + "source/pcb-gcode-prg.scr") {
 		printf("MENU \\\n");
 		for(int i = 1; i < PH_LAST_PHASE; i++) {
@@ -1574,6 +1562,13 @@ if (argv[FILENAME_ARG] == "--help") {
 	exit(0);
 }
 
+//dlgMessageBox(usage, "+Return to Eagle", "Debug here");
+//comm("### Debug" + t2string(time()));
+// sprintf(g_debug, "Illegal phase %d in main routine", g_phase);
+//dlgMessageBox(g_debug, "+Return to Eagle", "OK");
+//g_cmd = "window fit;\n";
+//exit(g_cmd);
+
 // Be sure a filename is specified.
 if (argv[FILENAME_ARG]) {
 	m_file_name = argv[FILENAME_ARG];
@@ -1621,12 +1616,28 @@ else {
 	g_phase = PH_TOP_OUT_GEN;
 }
 
+// Get the phase we are processing, or default to the first one.
+if (argv[ETCH_LAYER_ARG]) {
+	etch_layer = strtol(argv[ETCH_LAYER_ARG]);
+}
+else {
+	if (ETCH_SLICING)	etch_layer = 1;
+							 else etch_layer = ETCH_NUM_SLICES;
+}
+
 get_current_profile();
 
 if (g_phase == PH_TOP_OUT_GEN && m_pass_num == 0 && program_is_setup() == NO)
 {
 	exit("run pcb-gcode-setup");
 }
+
+//DEFAULT_Z_DOWN = DEFAULT_Z_DOWN / ETCH_NUM_SLICES * etch_layer;
+//sprintf(g_debug,"Debug<br>Filename : %s<br>ToolSize : %s<br>ISO : %s<br>PASS : %s<br>Phase : %s<br>Layer : %s", argv[FILENAME_ARG],argv[TOOL_SIZE_ARG],argv[ISO_ARG],argv[PASS_ARG],argv[PHASE_ARG],argv[ETCH_LAYER_ARG]);
+//sprintf(g_debug,"Debug<br>Filename : %s<br>ToolSize : %.0f<br>ISO : %.0f<br>PASS : %.d<br>Phase : %0.d<br>Layer : %.d", m_file_name,g_tool_size,m_isolate,m_pass_num,g_phase,etch_layer);
+//dlgMessageBox(g_debug, "+Return to Eagle", "OK");
+//exit(1);
+
 
 //
 // Do what we need to for this phase.
@@ -1706,18 +1717,34 @@ next_phase();
 
 // If this is not the last phase, exit with a command line for
 // Eagle to process. The command includes running this program again.
+// RUN pcb-gcode FILENAME TOOLSIZE ISOLATE PASSNUM PHASE LAYER
 if (g_phase < PH_LAST_PHASE) {
 	sprintf(g_cmd,
 		"%s"
 		"window fit;\n"
-		"run '%s' '%s' '%f' '%f' '%d' '%d';\n",
+		"run '%s' '%s' '%f' '%f' '%d' '%d' '%d';\n",
 		g_cmd,
 		argv[PROGRAM_NAME_ARG], m_file_name, g_tool_size, m_isolate,
-		m_pass_num, g_phase
+		m_pass_num, g_phase, etch_layer
 		);
 	exit(g_cmd);
 }
 else {
-	g_cmd = "window fit;\n";
+	//sprintf(g_debug,"Debug<br>Filename : %s<br>ToolSize : %.0f<br>ISO : %.0f<br>PASS : %.d<br>Phase : %0.d<br>Layer : %.d", m_file_name,g_tool_size,m_isolate,m_pass_num,g_phase,etch_layer);
+	//dlgMessageBox(g_debug, "+Return to Eagle", "OK");
+	// Check if all layers done
+	if (etch_layer==ETCH_NUM_SLICES) {
+		g_cmd = "window fit;\n";
+	}
+	else {
+		sprintf(g_cmd,
+		"%s"
+		"window fit;\n"
+		"run '%s' '%s' '%f' '%f' '%d' '%d' '%d';\n",
+		g_cmd,
+		argv[PROGRAM_NAME_ARG], m_file_name, TOOL_SIZE, ISO_MIN,
+		0, PH_TOP_OUT_GEN, etch_layer+1
+		);
+	}
 	exit(g_cmd);
 }

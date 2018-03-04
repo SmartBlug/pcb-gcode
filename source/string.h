@@ -14,55 +14,47 @@ int STR_NOT_FOUND = -1;
 char REC_SEP = '\v';
 char FIELD_SEP = '\t';
  
-string leftstr(string s, int n)
-{
+string leftstr(string s, int n) {
   return strsub(s, 0, n);
 }
 
-string rightstr(string s, int n)
-{
+string rightstr(string s, int n) {
   return strsub(s, strlen(s) - n);
 }
 
-string ltrim(string s)
-{
+string ltrim(string s) {
  while (leftstr(s, 1) == " ") {
    s = strsub(s, 1);
  }
  return s;
 }
  
-string rtrim(string s)
-{
+string rtrim(string s) {
   while (strsub(s, strlen(s) - 1, 1) == " ") {
     s = strsub(s, 0, strlen(s) - 1);
   }
   return s;
 }
 
-string trim(string s) 
-{
+string trim(string s)  {
  return ltrim(rtrim(s));
 }
 
-string remove_last_slash(string s)
-{
+string remove_last_slash(string s) {
   if (rightstr(s, 1) == "/") {
     s = leftstr(s, strlen(s) - 1);
   }
   return s;
 }
     
-string remove_last_dir(string s)
-{
+string remove_last_dir(string s) {
   int pos;
   
   pos = strrstr(s, "/");
   return leftstr(s, pos);
 }
 
-string key_value_record(string a, string b)
-{
+string key_value_record(string a, string b) {
   return a + FIELD_SEP + b + REC_SEP;
 }
 
@@ -70,8 +62,7 @@ string key_value_record(string a, string b)
  * Replace text in a string with other text.
  *
  */
-string substitute(string s, string replacements)
-{
+string substitute(string s, string replacements) {
   int pos;
   string keys[];
   string values[];
@@ -120,8 +111,7 @@ string substitute(string s, string replacements)
  * Find the first character in chars in string s.
  *
  */
-int strhas(string s, string chars)
-{
+int strhas(string s, string chars) {
   int i;
   int pos;
   
@@ -134,8 +124,7 @@ int strhas(string s, string chars)
   return STR_NOT_FOUND;
 }
 
-int stronlyhas(string s, string chars)
-{
+int stronlyhas(string s, string chars) {
   int i;
   int pos;
   
@@ -152,8 +141,7 @@ int stronlyhas(string s, string chars)
  * Return how many c's are in s.
  *
  */
-int strcnt(string s, char c)
-{
+int strcnt(string s, char c) {
   int cnt;
   int pos;
 
@@ -171,8 +159,7 @@ int strcnt(string s, char c)
  * Value goes to the end of the line it is on.
  *
  */
-string get_value(string s, string key)
-{
+string get_value(string s, string key) {
   int pos;
   int nl_pos;
   int space_pos;
@@ -196,8 +183,7 @@ string get_value(string s, string key)
   return "";
 }
 
-string get_value_from_file(string path, string key)
-{
+string get_value_from_file(string path, string key) {
   string text;
   
   fileread(text, path);
@@ -205,9 +191,7 @@ string get_value_from_file(string path, string key)
 }
 
 
-
-string elided_path(string path, int width)
-{
+string elided_path(string path, int width) {
   int i;
   string ep;
   int pos;

@@ -5,8 +5,7 @@ string FILENAME_SUBS;
 //
 // Values to substitute in file names.
 //
-string setup_subs_side_phase(int l_side, int l_phase)
-{
+string setup_subs_side_phase(int l_side, int l_phase) {
   string side;
   string file;
   string tmp;
@@ -61,8 +60,7 @@ string setup_subs_side_phase(int l_side, int l_phase)
   return FILENAME_SUBS;
 }
 
-string filename_subs_help()
-{
+string filename_subs_help() {
   return "<h2>Filename Variables</h2>"
     "<table>"
     "<tr><td>$PROJECT_PATH[n]</td>"
@@ -104,20 +102,17 @@ string filename_subs_help()
   ;
 }
 
-string setup_subs()
-{
+string setup_subs() {
   return setup_subs_side_phase(g_side, g_phase);
 }
 
-string sub_side_phase(string s, int side, int phase)
-{
+string sub_side_phase(string s, int side, int phase) {
   if (phase == 0) dlgMessageBox("phase == 0");
   setup_subs_side_phase(side, phase);
   return substitute(s, FILENAME_SUBS);
 }
 
-string get_filename()
-{
+string get_filename() {
   string name;
   
   setup_subs();
@@ -167,7 +162,6 @@ string get_filename()
 
 setup_subs();
 
-string sub_path(string name)
-{
+string sub_path(string name) {
   return substitute(name, FILENAME_SUBS);
 }

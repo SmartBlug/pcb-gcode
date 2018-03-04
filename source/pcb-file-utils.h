@@ -10,14 +10,12 @@ int m_line_number;
 int LINE_NUMBER_INCREMENT = 10;
 string g_preview;
 
-void eol()
-{
+void eol() {
 	printf(EOL);
 	m_line_number += LINE_NUMBER_INCREMENT;
 }
 
-int out(string s)
-{
+int out(string s) {
 	int old_line_num;
 	string lines[];
 	int num;
@@ -51,42 +49,35 @@ real cur_x = -999.999;
 real cur_y = -999.999;
 real cur_z = -999.999;
 
-void reset_current_positions(void)
-{
+void reset_current_positions(void) {
   cur_x = -999.999;
   cur_y = -999.999;
   cur_z = -999.999;
 }
 
-void update_cur_z(real z)
-{
+void update_cur_z(real z) {
   cur_z = z;
 }
 
-void update_cur_x(real x)
-{
+void update_cur_x(real x) {
   cur_x = x;
 }
 
-void update_cur_y(real y)
-{
+void update_cur_y(real y) {
   cur_y = y;
 }
 
-void update_cur_xy(real x, real y)
-{
+void update_cur_xy(real x, real y) {
   update_cur_x(x);
   update_cur_y(y);
 }
 
-void update_cur_xyz(real x, real y, real z)
-{
+void update_cur_xyz(real x, real y, real z) {
   update_cur_xy(x, y);
   update_cur_z(z);
 }
 
-void xy(real x, real y)
-{
+void xy(real x, real y) {
 	if (close(x, cur_x) && close(y, cur_y)) {
 		return;
 	}
@@ -117,29 +108,25 @@ void xy(real x, real y)
 //
 // Output Feed commands.
 //
-void rate(real f)
-{
+void rate(real f) {
 	out(fr(FR_FORMAT, f));
 }
 
-void fx(real x)
-{
+void fx(real x) {
 	if (! close(x, cur_x)) {
 		out(fr(FEED_MOVE_X, x) + EOL);
 		update_cur_x(x);
 	}
 }
 
-void fy(real y)
-{
+void fy(real y) {
 	if (! close(y, cur_y)) {
 		out(fr(FEED_MOVE_Y, y) + EOL);
 		update_cur_y(y);
 	}
 }
 
-void fz(real z)
-{
+void fz(real z) {
 	if (! close(z, cur_z)) {
 		out(fr(FEED_MOVE_Z, z) + EOL);
 		update_cur_z(z);
@@ -148,14 +135,12 @@ void fz(real z)
 
 // Since the next move may depend on the Z rate having been set
 // in this routine, it just outputs the move as usual.
-void fzr(real z, real f)
-{
+void fzr(real z, real f) {
 	out( frr(FEED_MOVE_Z_WITH_RATE, z, f)      + EOL);
 	update_cur_z(z);
 }
 
-void fxy(real x, real y)
-{
+void fxy(real x, real y) {
 	if (! close(x, cur_x) || ! close(y, cur_y)) {
 		out( frr(FEED_MOVE_XY, x, y)               + EOL);
 		update_cur_xy(x, y);
@@ -164,14 +149,12 @@ void fxy(real x, real y)
 
 // Since the next move may depend on the XY rate having been set
 // in this routine, it just outputs the move as usual.
-void fxyr(real x, real y, real f)
-{
+void fxyr(real x, real y, real f) {
 	out( frrr(FEED_MOVE_XY_WITH_RATE, x, y, f) + EOL);
 	update_cur_xy(x, y);
 }
 
-void fxyz(real x, real y, real z)
-{
+void fxyz(real x, real y, real z) {
 	if (! close(x, cur_x) || ! close(y, cur_y) || ! close(z, cur_z)) {
 		out(frrr(FEED_MOVE_XYZ, x, y, z)           + EOL);
 		update_cur_xy(x, y);
@@ -182,40 +165,35 @@ void fxyz(real x, real y, real z)
 //
 // Output Rapid commands.
 //
-void rx(real x)
-{
+void rx(real x) {
 	if (! close(x, cur_x)) {
 		out(fr(RAPID_MOVE_X, x) + EOL);
 		update_cur_x(x);
 	}
 }
 
-void ry(real y)
-{
+void ry(real y) {
 	if (! close(y, cur_y)) {
 		out(fr(RAPID_MOVE_Y, y) + EOL);
 		update_cur_y(y);
 	}
 }
 
-void rz(real z)
-{
+void rz(real z) {
 	if (! close(z, cur_z)) {
 		out(fr(RAPID_MOVE_Z, z) + EOL);
 		update_cur_z(z);
 	}
 }
 
-void rxy(real x, real y)
-{
+void rxy(real x, real y) {
 	if (! close(x, cur_x) || ! close(y, cur_y)) {
 		out( frr(RAPID_MOVE_XY, x, y)               + EOL);
 		update_cur_xy(x, y);
 	}
 }
 
-void rxyz(real x, real y, real z)
-{
+void rxyz(real x, real y, real z) {
 	if (! close(x, cur_x) || ! close(y, cur_y) || ! close(z, cur_z)) {
 		out(frrr(RAPID_MOVE_XYZ, x, y, z)           + EOL);
 		update_cur_xy(x, y);
@@ -223,15 +201,13 @@ void rxyz(real x, real y, real z)
 	}
 }
 
-void comm(string str)
-{
+void comm(string str) {
 	if (strlen(str) > 0) {
 		out(COMMENT_BEGIN + str + COMMENT_END + EOL);
 	}
 }
 
-void output_file_heading()
-{
+void output_file_heading() {
   real fr_xy;
   real fr_z;
 
@@ -331,8 +307,7 @@ void output_file_heading()
 // Returns:
 //  none
 //
-void begin_gcode(real spindle_speed)
-{
+void begin_gcode(real spindle_speed) {
 	out(get_mode());
 
 	out(ABSOLUTE_MODE);
@@ -354,16 +329,14 @@ void begin_gcode(real spindle_speed)
 // Return:
 //  none
 //
-void end_gcode(void)
-{
+void end_gcode(void) {
 	rz(DEFAULT_Z_HIGH);
 	out(SPINDLE_OFF);
 	out(END_PROGRAM);
 }
 
 // Kinds (outline, drill, etc.)
-void output_kind_begin()
-{
+void output_kind_begin() {
 	if (USER_GCODE == NO)
 		return;
 
@@ -408,16 +381,14 @@ void output_kind_begin()
 	}
 }
 
-void output_between_outline_passes()
-{
+void output_between_outline_passes() {
 	if (USER_GCODE) {
 		out(OUTLINE_BETWEEN[ALL]);
 		out(OUTLINE_BETWEEN[g_side]);
 	}
 }
 
-void output_kind_end()
-{
+void output_kind_end() {
 	if (USER_GCODE == NO)
 		return;
 
@@ -463,40 +434,35 @@ void output_kind_end()
 }
 
 // Tool changing
-void output_tool_change_begin()
-{
+void output_tool_change_begin() {
 	if (USER_GCODE) {
 		out(TOOL_CHANGE_BEGIN[ALL]);
 		out(TOOL_CHANGE_BEGIN[g_side]);
 	}
 }
 
-void output_tool_changed()
-{
+void output_tool_changed() {
 	if (USER_GCODE) {
 		out(TOOL_CHANGED[g_side]);
 		out(TOOL_CHANGED[ALL]);
 	}
 }
 
-void output_tool_zero_begin()
-{
+void output_tool_zero_begin() {
 	if (USER_GCODE) {
 		out(TOOL_ZERO_BEGIN[ALL]);
 		out(TOOL_ZERO_BEGIN[g_side]);
 	}
 }
 
-void output_tool_zero_end()
-{
+void output_tool_zero_end() {
 	if (USER_GCODE) {
 		out(TOOL_ZERO_END[g_side]);
 		out(TOOL_ZERO_END[ALL]);
 	}
 }
 
-void output_tool_change_end()
-{
+void output_tool_change_end() {
 	if (USER_GCODE) {
 		out(TOOL_CHANGE_END[g_side]);
 		out(TOOL_CHANGE_END[ALL]);
@@ -506,8 +472,7 @@ void output_tool_change_end()
 //
 // Print file beginning headers and user-codes.
 //
-void output_file_preamble()
-{
+void output_file_preamble() {
 	output_file_heading();
 
 	if (USER_GCODE) {
@@ -520,8 +485,7 @@ void output_file_preamble()
 //
 // Print file closing text and user-codes.
 //
-void output_file_postamble()
-{
+void output_file_postamble() {
 	if (USER_GCODE) {
 		output_kind_end();
 		out(FILE_END[g_side]);
@@ -529,8 +493,7 @@ void output_file_postamble()
 	}
 }
 
-void output_drill_first_hole(real drill_x, real drill_y, real depth)
-{
+void output_drill_first_hole(real drill_x, real drill_y, real depth) {
 	string tt;
 
 	if (SIMPLE_DRILL_CODE) {
@@ -548,8 +511,7 @@ void output_drill_first_hole(real drill_x, real drill_y, real depth)
 	}
 }
 
-void output_drill_hole(real drill_x, real drill_y, real depth)
-{
+void output_drill_hole(real drill_x, real drill_y, real depth) {
 	if (SIMPLE_DRILL_CODE) {
 		rxy(drill_x, drill_y);
 		fzr(depth, FEED_RATE_DRILL_Z);

@@ -38,8 +38,7 @@ int INTERNALS_PER_INCH = MM_PER_INCH * INTERNAL_SCALAR;
 // Changes:
 //  none
 //
-string get_units(string s)
-{
+string get_units(string s) {
   int len;
   string units;
   
@@ -63,8 +62,7 @@ string get_units(string s)
 // Changes:
 //  none
 //
-real convert(real value, int old_units, int new_units)
-{
+real convert(real value, int old_units, int new_units) {
   real temp;
   real result;
 
@@ -136,8 +134,7 @@ real convert(real value, int old_units, int new_units)
 // Changes:
 //  none
 //
-int conv_to_units(string s)
-{
+int conv_to_units(string s) {
   int val;
   string units;
   real num;
@@ -184,8 +181,7 @@ int conv_to_units(string s)
 // Changes:
 //  none
 //
-int in_range_int(int val, int min_val, int max_val)
-{
+int in_range_int(int val, int min_val, int max_val) {
   return((val >= min_val) && (val <= max_val));
 }
 
@@ -200,8 +196,7 @@ int in_range_int(int val, int min_val, int max_val)
 // Changes:
 //  none
 //
-int close(real val_a, real val_b)
-{
+int close(real val_a, real val_b) {
 	return(abs(val_a - val_b) < EPSILON);
 }
 
@@ -216,8 +211,7 @@ int close(real val_a, real val_b)
 // Changes:
 //  none
 //
-int close2(real xa, real xb, real ya, real yb)
-{
+int close2(real xa, real xb, real ya, real yb) {
 	if (close(xa, xb) && close(ya, yb)) {
 		return true;
 	}
@@ -236,8 +230,7 @@ int close2(real xa, real xb, real ya, real yb)
 // Changes:
 //  none
 //
-int close3(real xa, real xb, real ya, real yb, real za, real zb)
-{
+int close3(real xa, real xb, real ya, real yb, real za, real zb) {
 	if (close(xa, xb) && close(ya, yb) && close(za, zb)) {
 		return true;
 	}

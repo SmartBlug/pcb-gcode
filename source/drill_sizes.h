@@ -50,13 +50,11 @@ real DRILL_SIZES_MM[] = {
 	0.508, 0.457, 0.406, 0.368, 0.343     // 76 - 80
 };                              
 
-real get_drill_size_inches(int num)
-{
+real get_drill_size_inches(int num) {
 	return DRILL_SIZES_INCHES[num];
 }
 
-int get_drill_number(real inches)
-{
+int get_drill_number(real inches) {
 	int i;
 
 	i = NUM_WIRE_DRILL_SIZES;

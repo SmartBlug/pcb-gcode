@@ -7,35 +7,29 @@ string m_ary[];
 char FIELD_SEP = '\t';
 char RECORD_SEP = '\n';
 
-string push(string stack, string entry)
-{
+string push(string stack, string entry) {
   return stack + entry + RECORD_SEP;
 }
 
-string top(string stack)
-{
+string top(string stack) {
   int num = strsplit(m_ary, stack, RECORD_SEP);
   return m_ary[num - 1];
 }
 
-string pop(string stack)
-{
+string pop(string stack) {
   int off = strrchr(stack, RECORD_SEP, -2);
   return strsub(stack, off);
 }
 
-string bottom(string stack)
-{
+string bottom(string stack) {
   return "";
 }
 
-string shift(string stack)
-{
+string shift(string stack) {
   return "";
 }
 
-string unshift(string stack, string entry)
-{
+string unshift(string stack, string entry) {
   return "";
 }
 

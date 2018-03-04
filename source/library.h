@@ -12,8 +12,7 @@
 //real X_OFFSET = 1.0;
 //real Y_OFFSET = 1.0;
 
-real internals_to_user(int n)
-{
+real internals_to_user(int n) {
   return (convert(n, U_INTERNALS, OUTPUT_UNITS));
 }
 
@@ -27,8 +26,7 @@ real internals_to_user(int n)
 //  n converted to an Eagle internal number..
 //
 
-int user_to_internals(real n)
-{
+int user_to_internals(real n) {
   return (convert(n, OUTPUT_UNITS, U_INTERNALS));
 }
 
@@ -79,8 +77,7 @@ string get_mode() {
 // Return:
 //  x scaled for top (+) or bottom (-).
 //
-real scale_x(int x)
-{
+real scale_x(int x) {
 	real scaled;
 
 	scaled = internals_to_user(x) + X_OFFSET;
@@ -100,8 +97,7 @@ real scale_x(int x)
 // Return:
 //  Y converted to user's units.
 //
-real scale_y(int y)
-{
+real scale_y(int y) {
 	real scaled;
 
 	scaled = internals_to_user(y) + Y_OFFSET;
@@ -121,8 +117,7 @@ real scale_y(int y)
 // Returns:
 //  s converted to a long.
 //
-int my_strtol(string s)
-{
+int my_strtol(string s) {
   string result;
   int i;
 
@@ -143,8 +138,7 @@ int my_strtol(string s)
 //  Details   Details of the message.
 // Return: none
 //
-void Message(string msg)
-{
+void Message(string msg) {
   dlgMessageBox(msg);
 }
 
@@ -156,8 +150,7 @@ void Message(string msg)
 //  Details   Details of the error.
 // Return: none
 //
-void Error(string msg, string details)
-{
+void Error(string msg, string details) {
 	Message(usage + "<hr><b>Error: " + msg + "</b><p>" + details);
 }
 
@@ -170,16 +163,14 @@ void Error(string msg, string details)
 //  Details   Details of the error.
 // Return: none
 //
-void Fatal(string msg, string details)
-{
+void Fatal(string msg, string details) {
   // todo change to call Error
   Error(msg, details);
   exit(1);
 }
 
 
-int file_exists(string file)
-{
+int file_exists(string file) {
   string files[];
   int num_files = fileglob(files, file);
   
@@ -200,8 +191,7 @@ enum {
   OS_WINDOWS
 }
 
-int get_os()
-{
+int get_os() {
   if (file_exists("/Applications/*"))
     return OS_MACOSX;
   if (file_exists("/home/*"))
@@ -210,8 +200,7 @@ int get_os()
 }
 
 
-string get_unit_of_measure()
-{
+string get_unit_of_measure() {
   string unit_of_measure = "not set";
   
   //

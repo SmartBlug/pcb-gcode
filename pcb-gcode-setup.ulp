@@ -161,8 +161,9 @@ void write_string_param(string name, string value)
 
 void convert_units(int new_units)
 {
+    //ETCH_NUM_SLICES = convert(ETCH_NUM_SLICES, m_current_units, new_units);
     MILLING_DEPTH = convert(MILLING_DEPTH, m_current_units, new_units);
-    MILLING_NUM_SLICES = convert(MILLING_NUM_SLICES, m_current_units, new_units);
+    // MILLING_NUM_SLICES = convert(MILLING_NUM_SLICES, m_current_units, new_units);
     TEXT_DEPTH = convert(TEXT_DEPTH, m_current_units, new_units);
     SPOT_DRILL_DEPTH = convert(SPOT_DRILL_DEPTH, m_current_units, new_units);
     ISO_MIN = convert(ISO_MIN, m_current_units, new_units);
@@ -410,6 +411,9 @@ void save_pcb_machine()
     write_real_param("SPINDLE_MILL_RPM", SPINDLE_MILL_RPM);
     write_real_param("SPINDLE_TEXT_RPM", SPINDLE_TEXT_RPM);
     write_real_param("SPINDLE_STENCIL_RPM", SPINDLE_STENCIL_RPM);
+
+    write_real_param("ETCH_NUM_SLICES", ETCH_NUM_SLICES);
+
     write_real_param("MILLING_DEPTH", MILLING_DEPTH);
     write_real_param("MILLING_NUM_SLICES", MILLING_NUM_SLICES);
     write_real_param("TEXT_DEPTH", TEXT_DEPTH);
@@ -466,6 +470,8 @@ void save_pcb_gcode_options()
     write_bool_param("USE_LINE_NUMBERS", USE_LINE_NUMBERS);
     write_string_param("LINE_NUMBER_FORMAT", LINE_NUMBER_FORMAT);
     write_bool_param("SHOW_PREVIEW", SHOW_PREVIEW);
+
+    write_bool_param("ETCH_SLICING", ETCH_SLICING);
 
     write_string_param("FILENAME_BASE", FILENAME_BASE);
     write_string_param("FILENAME_TOP_ETCH_FILE",  FILENAME_TOP_ETCH_FILE);
@@ -573,6 +579,12 @@ int Result = dlgDialog("pcb-gcode Setup") {
       dlgVBoxLayout {
         dlgGroup("Board") {
           dlgVBoxLayout {
+            dlgGridLayout {
+              dlgCell(0, 0) dlgCheckBox("Etching Slicing", ETCH_SLICING);
+              dlgCell(0, 1) dlgLabel("Num Slices ");
+              dlgCell(0, 2) { dlgRealEdit(ETCH_NUM_SLICES); }
+            }
+              
             dlgGridLayout {
               dlgCell(0, 0) dlgCheckBox("Show preview ", SHOW_PREVIEW);
               dlgCell(0, 1) dlgLabel("Width");

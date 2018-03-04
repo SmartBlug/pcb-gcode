@@ -1,6 +1,5 @@
 // -*- Mode: Eagle -*-
-void filecopy(string from_name, string to_name)
-{
+void filecopy(string from_name, string to_name) {
 	string contents[];
 	int num_lines;
 

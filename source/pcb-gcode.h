@@ -57,6 +57,7 @@ int TOOL_SIZE_ARG = 2;
 int ISO_ARG = 3;
 int PASS_ARG = 4;
 int PHASE_ARG = 5;
+int ETCH_LAYER_ARG = 6;
 
 real COORD_TOLERANCE = 0.0001;
 
@@ -138,6 +139,8 @@ int g_side = TOP;
 
 // Which phase of the process we're working on.
 int g_phase;
+// Witch etching LAYER
+int etch_layer;
 
 string IS_SETUP_FILE_NAME = "pcb_gcode_is_setup";
 
@@ -149,8 +152,7 @@ enum {
 	DESCRIPTION = 2
 	}
 
-string get_current_profile()
-{
+string get_current_profile() {
 	string files[];
 	int num_files = fileglob(files, g_path + "/" + IS_SETUP_FILE_NAME);
 	if (num_files > 0) {
@@ -166,8 +168,7 @@ string get_current_profile()
 	return CURRENT_PROFILE[DESCRIPTION];
 }
 
-void set_current_profile(string profile_fields)
-{
+void set_current_profile(string profile_fields) {
 	strsplit(CURRENT_PROFILE, profile_fields, '\t');
 	output(g_path + "/" + IS_SETUP_FILE_NAME) {
 		printf("%s\n", CURRENT_PROFILE[FILE_NAME]);
@@ -176,16 +177,14 @@ void set_current_profile(string profile_fields)
 	}
 }
 
-int program_is_setup()
-{
+int program_is_setup() {
 	if (get_current_profile() == "NONE")
 		return NO;
 		
 	return YES;
 }
 
-void path_not_set_error()
-{
+void path_not_set_error() {
   dlgMessageBox("There is a problem with your installation of pcb-gcode.\n" +
   "You probably need to add the path to pcb-gcode's folder in " +
   "EAGLE's Control Panel | Options | Directories | User Language Programs setting.\n"
@@ -198,8 +197,7 @@ void path_not_set_error()
 // Options | Directories | User Language Programs settings.
 
 
-void get_path()
-{
+void get_path() {
   int index = 0;
   string last_g_path;
 
@@ -240,15 +238,13 @@ get_current_profile();
  
 // I know, I know. No way around it that I see right now.
 string g_real_to_string_string = "";
-string real_to_string(real n)
-{
+string real_to_string(real n) {
 	sprintf(g_real_to_string_string, "%f", n);
 	return g_real_to_string_string;
 }
 
 string g_int_to_string_string = "";
-string int_to_string(int n)
-{
+string int_to_string(int n) {
 	sprintf(g_int_to_string_string, "%d", n);
 	return g_int_to_string_string;
 }

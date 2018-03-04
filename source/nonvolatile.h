@@ -30,8 +30,7 @@ if (filetime(STORAGE_NAME) == 0) {
 // Changes:
 //  none
 //
-void empty_m_params()
-{
+void empty_m_params() {
   int i;
   
   while (m_params[i] != "")
@@ -48,8 +47,7 @@ void empty_m_params()
 // Changes:
 //  m_params
 //
-int read_nv_file(int can_abort)
-{
+int read_nv_file(int can_abort) {
   int num_params;
   
   empty_m_params();
@@ -79,8 +77,7 @@ int read_nv_file(int can_abort)
 // Changes:
 //  none
 //
-string get_nv_param(string name, string def, int can_abort)
-{
+string get_nv_param(string name, string def, int can_abort) {
   string value;
 
   read_nv_file(can_abort);
@@ -103,8 +100,7 @@ string get_nv_param(string name, string def, int can_abort)
 // Changes:
 //  m_params
 //
-void set_nv_param(string name, string value)
-{
+void set_nv_param(string name, string value) {
   int num_params;
   int i;
   string record[];
@@ -142,8 +138,7 @@ void set_nv_param(string name, string value)
 // Changes:
 //  m_params
 //
-void set_real_nv_param(string name, real value)
-{
+void set_real_nv_param(string name, real value) {
   string str;
   sprintf(str, "%f", value);
   set_nv_param(name, str);
@@ -161,8 +156,7 @@ void set_real_nv_param(string name, real value)
 // Changes:
 //  none
 //
-real get_real_nv_param(string name)
-{
+real get_real_nv_param(string name) {
   string str;
   str = get_nv_param(name, "0.000", YES);
   return strtod(str);

@@ -40,8 +40,7 @@ else {
  * nv_param drill_shut_up   Set to YES if the user never wants to see drill messages.
  *
  */
-void message(string msg)
-{
+void message(string msg) {
     if(m_shut_up)
       return;
 
@@ -72,8 +71,7 @@ void message(string msg)
  * m_have_rack      Whether a rack file was available.
  * m_rack_file_name The name of the rack file, if available.
  */
-void read_rack_file(string drill_file)
-{
+void read_rack_file(string drill_file) {
 	string VALID_DRILL_CHARS = "#+-.0123456789imntT" + DRILL_SEP;
 
 	string drill_raw[];
@@ -113,8 +111,7 @@ void read_rack_file(string drill_file)
  * Modifies
  *
  */
-void load_rack()
-{
+void load_rack() {
 	string board_file;
 	string drill_file;
 
@@ -161,8 +158,7 @@ load_rack();
  *
 **/
 int g_did_subs;
-int get_drill_for_and_count(int req_size, int do_count)
-{
+int get_drill_for_and_count(int req_size, int do_count) {
 	int i;
 	int tool_num;
 	int drill_size;
@@ -245,8 +241,7 @@ int get_drill_for_and_count(int req_size, int do_count)
  * Modifies
  *
  */
-int get_drill_for(int req_size)
-{
+int get_drill_for(int req_size) {
   return get_drill_for_and_count(req_size, true);
 }
 
@@ -267,8 +262,7 @@ int get_drill_for(int req_size)
  * Modifies
  *
  */
-int get_tool_num_for(int req_size, int default_tool)
-{
+int get_tool_num_for(int req_size, int default_tool) {
 	if (!m_have_rack) {
 		return default_tool;
 	}
